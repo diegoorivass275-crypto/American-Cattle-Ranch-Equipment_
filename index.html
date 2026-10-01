@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>ACRE · Equipo para rancho ganadero</title>
+<meta name="description" content="Corraletas, trampas, comederos, bebederos y básculas fabricadas en acero para rancho ganadero. Fabricación propia y servicio de taller." />
+<meta name="theme-color" content="#4F5D3A" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   ACRE — American Cattle Ranch Equipment
+
+   La paleta sale del propio logo: el verde militar del arco y el
+   gris del texto. No se agregó ningún color más.
+
+   La tipografía es la misma del sistema interno de la empresa
+   (Archivo + IBM Plex), para que la página y el sistema se vean
+   como una sola marca y no como dos cosas distintas.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --verde:       #4f5d3a;
+  --verde-vivo:  #61713f;
+  --verde-hondo: #35402a;
+  --carbon:      #24241f;
+  --hueso:       #e9e7df;
+  --hueso-claro: #f4f2ec;
+  --acero:       #8c9179;
+  --linea:       #d2d0c6;
+  --blanco:      #ffffff;
+
+  --titular: "Archivo", system-ui, sans-serif;
+  --texto:   "IBM Plex Sans", system-ui, sans-serif;
+  --spec:    "IBM Plex Mono", ui-monospace, monospace;
+
+  --radio: 3px;          /* casi recto: es equipo de acero, no una app */
+  --ancho: 1240px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+/* Sin esto, al saltar a una sección el titular queda escondido bajo el
+   menú pegajoso. */
+section, .portada { scroll-margin-top: 84px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+body {
+  margin: 0;
+  font-family: var(--texto);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--carbon);
+  background: var(--hueso);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+.envoltura { width: min(100% - 48px, var(--ancho)); margin-inline: auto; }
+
+:focus-visible {
+  outline: 3px solid var(--verde);
+  outline-offset: 3px;
+}
+
+/* ── Cinta de la marca ─────────────────────────────────── */
+.cinta {
+  height: 5px;
+  background: repeating-linear-gradient(45deg,
+    var(--verde) 0 12px, var(--carbon) 12px 24px);
+}
+
+/* ── Navegación ────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(233, 231, 223, .93);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linea);
+}
+.nav-fila {
+  display: flex; align-items: center; gap: 28px;
+  height: 76px;
+}
+.marca { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.marca img { height: 46px; width: auto; }
+.marca-txt {
+  font-family: var(--titular); font-weight: 800; font-size: 20px;
+  letter-spacing: .02em; color: var(--verde-hondo); line-height: 1;
+}
+.marca-txt small {
+  display: block; font-family: var(--texto); font-weight: 400;
+  font-size: 10.5px; letter-spacing: .1em; color: var(--acero);
+  margin-top: 3px; text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 26px; margin-left: auto; align-items: center; }
+.nav-links a {
+  text-decoration: none; font-weight: 500; font-size: 15.5px;
+  color: var(--carbon); padding: 6px 0; border-bottom: 2px solid transparent;
+}
+.nav-links a:hover { border-bottom-color: var(--verde); }
+/* El botón dentro del menú necesita más especificidad que ".nav-links a",
+   si no hereda el color oscuro y queda ilegible sobre el verde. */
+.nav-links a.btn { color: #fff; border-bottom: none; padding: 12px 22px; }
+.nav-links a.btn:hover { border-bottom: none; }
+
+.btn {
+  font: inherit; font-weight: 600; font-size: 15px;
+  border: none; border-radius: var(--radio); cursor: pointer;
+  padding: 12px 22px; background: var(--verde); color: #fff;
+  text-decoration: none; display: inline-block; text-align: center;
+  transition: background .15s;
+}
+.btn:hover { background: var(--verde-hondo); }
+.btn.linea {
+  background: transparent; color: var(--verde-hondo);
+  box-shadow: inset 0 0 0 1.5px var(--verde);
+}
+.btn.linea:hover { background: rgba(79, 93, 58, .09); }
+.btn.claro { background: #fff; color: var(--verde-hondo); }
+.btn.claro:hover { background: var(--hueso); }
+.btn:disabled { opacity: .45; cursor: default; }
+
+.menu-btn {
+  display: none; margin-left: auto; background: none; border: none;
+  font-size: 26px; cursor: pointer; color: var(--carbon); padding: 4px 8px;
+}
+
+/* ── Portada ───────────────────────────────────────────── */
+.portada {
+  background: var(--verde-hondo);
+  color: var(--hueso-claro);
+  position: relative;
+  overflow: hidden;
+}
+/* Trama de tubo: evoca el material del que está hecho todo esto */
+.portada::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(90deg,
+    rgba(255,255,255,.045) 0 1px, transparent 1px 78px);
+  pointer-events: none;
+}
+.portada-rejilla {
+  display: grid; grid-template-columns: 1.05fr .95fr;
+  gap: 56px; align-items: center;
+  padding: 84px 0 92px;
+  position: relative;
+}
+.portada h1 {
+  font-family: var(--titular); font-weight: 800;
+  font-size: clamp(42px, 5.6vw, 74px);
+  line-height: .97; letter-spacing: -.02em;
+  margin: 0 0 26px;
+}
+.portada p.entrada {
+  font-size: 19px; line-height: 1.62; max-width: 46ch;
+  color: rgba(244, 242, 236, .82); margin: 0 0 34px;
+}
+.portada-acciones { display: flex; gap: 14px; flex-wrap: wrap; }
+
+.portada-datos {
+  display: flex; gap: 40px; flex-wrap: wrap;
+  margin-top: 46px; padding-top: 26px;
+  border-top: 1px solid rgba(255,255,255,.16);
+}
+.dato b {
+  display: block; font-family: var(--spec); font-size: 15px;
+  font-weight: 600; color: var(--hueso-claro); letter-spacing: .01em;
+}
+.dato span { font-size: 13.5px; color: rgba(244,242,236,.6); }
+
+.portada-foto {
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.05);
+  padding: 22px; border-radius: var(--radio); position:relative;
+}
+.portada-foto img { width: 100%; height: 330px; object-fit: contain; cursor:pointer; }
+.portada-foto button {
+  position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+  width:42px; height:42px; border:0; border-radius:50%; cursor:pointer;
+  background:rgba(255,255,255,.92); color:var(--verde-hondo); font-size:24px;
+  box-shadow:0 4px 18px rgba(0,0,0,.18);
+}
+.portada-foto button:hover { background:#fff; }
+.portada-anterior { left:12px; }
+.portada-siguiente { right:12px; }
+.portada-foto figcaption {
+  font-family: var(--spec); font-size: 12.5px; color: rgba(244,242,236,.62);
+  margin-top: 14px; display: flex; justify-content: space-between; gap: 12px;
+}
+
+/* ── Secciones ─────────────────────────────────────────── */
+section { padding: 76px 0; }
+.seccion-clara { background: var(--hueso-claro); }
+
+.encabezado { max-width: 62ch; margin-bottom: 38px; }
+.encabezado h2 {
+  font-family: var(--titular); font-weight: 700;
+  font-size: clamp(29px, 3.4vw, 40px); line-height: 1.1;
+  letter-spacing: -.015em; margin: 0 0 12px; color: var(--verde-hondo);
+}
+.encabezado p { margin: 0; font-size: 17.5px; color: #4a4c42; }
+
+/* ── Buscador y filtros ────────────────────────────────── */
+.herramientas {
+  position: sticky; top: 76px; z-index: 30;
+  background: var(--hueso);
+  padding: 16px 0 14px; margin-bottom: 26px;
+  border-bottom: 1px solid var(--linea);
+}
+.buscador { position: relative; margin-bottom: 14px; }
+.buscador input {
+  width: 100%; font: inherit; font-size: 16.5px;
+  padding: 14px 16px 14px 46px;
+  border: 1.5px solid var(--linea); border-radius: var(--radio);
+  background: #fff; color: var(--carbon);
+}
+.buscador input:focus { border-color: var(--verde); outline: none; }
+.buscador svg {
+  position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+  width: 19px; height: 19px; stroke: var(--acero); fill: none; stroke-width: 2;
+}
+.filtros { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  font: inherit; font-size: 14.5px; font-weight: 500;
+  padding: 8px 15px; border-radius: 100px; cursor: pointer;
+  background: #fff; color: var(--carbon);
+  border: 1.5px solid var(--linea);
+  transition: background .12s, border-color .12s, color .12s;
+}
+.chip:hover { border-color: var(--acero); }
+.chip[aria-pressed="true"] {
+  background: var(--verde); border-color: var(--verde); color: #fff;
+}
+.conteo {
+  font-family: var(--spec); font-size: 13px; color: var(--acero);
+  margin: 14px 0 0;
+}
+
+/* ── Rejilla de productos ──────────────────────────────── */
+.rejilla {
+  display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+}
+.ficha {
+  background: #fff; border: 1px solid var(--linea);
+  border-radius: var(--radio); overflow: hidden;
+  display: flex; flex-direction: column;
+  text-align: left; font: inherit; color: inherit;
+  cursor: pointer; padding: 0;
+  transition: border-color .14s, transform .14s;
+}
+.ficha:hover { border-color: var(--verde); transform: translateY(-2px); }
+.ficha-img {
+  height: 186px; background: var(--hueso-claro);
+  display: flex; align-items: center; justify-content: center;
+  padding: 14px; border-bottom: 1px solid var(--linea);
+}
+.ficha-img img { max-height: 100%; width: auto; object-fit: contain; }
+.sin-foto {
+  font-family: var(--spec); font-size: 12px; color: var(--acero);
+  text-align: center; line-height: 1.5;
+}
+.ficha-cuerpo { padding: 16px 16px 18px; flex: 1; display: flex; flex-direction: column; }
+/* La medida va como titular: así se pide el equipo en el rancho */
+.ficha-spec {
+  font-family: var(--spec); font-weight: 600; font-size: 20px;
+  color: var(--verde); line-height: 1; margin-bottom: 7px;
+}
+.ficha-nombre {
+  font-family: var(--titular); font-weight: 600; font-size: 16.5px;
+  line-height: 1.3; margin: 0 0 8px;
+}
+.ficha-nota { font-size: 14px; color: #5a5c50; margin: 0 0 14px; flex: 1; }
+.ficha-pie {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; font-size: 13px; color: var(--acero);
+  font-family: var(--spec);
+}
+.mini {
+  font: inherit; font-family: var(--texto); font-size: 13.5px; font-weight: 600;
+  border: 1.5px solid var(--verde); background: transparent; color: var(--verde);
+  border-radius: var(--radio); padding: 6px 11px; cursor: pointer;
+}
+.mini:hover { background: var(--verde); color: #fff; }
+.mini.puesto { background: var(--verde); color: #fff; }
+
+.vacio {
+  text-align: center; padding: 60px 20px; color: var(--acero);
+  border: 1px dashed var(--linea); border-radius: var(--radio);
+}
+.vacio strong { display: block; color: var(--carbon); margin-bottom: 6px; font-size: 18px; }
+
+/* ── Detalle ───────────────────────────────────────────── */
+.velo {
+  position: fixed; inset: 0; z-index: 90;
+  background: rgba(36, 36, 31, .6);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.velo[hidden] { display: none; }
+.detalle {
+  background: #fff; border-radius: var(--radio);
+  max-width: 860px; width: 100%; max-height: 88vh; overflow: auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.detalle-img {
+  background: var(--hueso-claro); display: flex; align-items: center;
+  justify-content: center; padding: 28px; min-height: 320px;
+}
+.detalle-img img { max-height: 380px; width: auto; object-fit: contain; }
+.detalle-txt { padding: 30px 30px 28px; }
+.detalle-txt h3 {
+  font-family: var(--titular); font-weight: 700; font-size: 26px;
+  margin: 0 0 6px; line-height: 1.15;
+}
+.detalle-lista {
+  list-style: none; padding: 0; margin: 18px 0 22px;
+  border-top: 1px solid var(--linea);
+}
+.detalle-lista li {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 10px 0; border-bottom: 1px solid var(--linea);
+  font-size: 14.5px;
+}
+.detalle-lista span:first-child { color: var(--acero); }
+.detalle-lista span:last-child { font-family: var(--spec); font-weight: 500; }
+.cerrar {
+  position: absolute; top: 18px; right: 20px;
+  background: #fff; border: 1px solid var(--linea); border-radius: 100px;
+  width: 38px; height: 38px; font-size: 20px; cursor: pointer; color: var(--carbon);
+}
+
+/* ── Ficha completa (página propia del sitio) ──────────── */
+.ficha-pagina { display: block; padding: 34px 0 80px; }
+.ficha-pagina[hidden] { display: none; }
+.volver {
+  font: inherit; font-size: 15px; font-weight: 500; cursor: pointer;
+  background: none; border: none; color: var(--verde);
+  padding: 6px 0; margin-bottom: 22px;
+}
+.volver:hover { text-decoration: underline; }
+
+.fp-rejilla {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 46px;
+  align-items: start;
+}
+.fp-foto {
+  background: #fff; border: 1px solid var(--linea);
+  border-radius: var(--radio); padding: 30px;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 400px;
+}
+.fp-foto img { max-height: 440px; width: auto; object-fit: contain; }
+.fp-spec {
+  font-family: var(--spec); font-weight: 600; font-size: 30px;
+  color: var(--verde); line-height: 1; margin-bottom: 8px;
+}
+.fp-titulo {
+  font-family: var(--titular); font-weight: 700;
+  font-size: clamp(28px, 3.4vw, 40px); line-height: 1.08;
+  letter-spacing: -.015em; margin: 0 0 14px; color: var(--carbon);
+}
+.fp-nota { font-size: 18px; color: #4a4c42; margin: 0 0 26px; max-width: 52ch; }
+
+.fp-sub {
+  font-family: var(--titular); font-weight: 600; font-size: 17px;
+  margin: 28px 0 12px;
+}
+.fp-detalles { list-style: none; padding: 0; margin: 0; }
+.fp-detalles li {
+  position: relative; padding: 7px 0 7px 20px; font-size: 15.5px;
+  color: #4a4c42;
+}
+.fp-detalles li::before {
+  content: ""; position: absolute; left: 0; top: 15px;
+  width: 8px; height: 2px; background: var(--verde);
+}
+.fp-pendiente {
+  font-size: 14.5px; color: var(--acero); border: 1px dashed var(--linea);
+  border-radius: var(--radio); padding: 14px 16px; margin: 0;
+}
+
+.fp-acciones { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+
+.relacionados { margin-top: 68px; }
+.relacionados h2 {
+  font-family: var(--titular); font-weight: 700; font-size: 24px;
+  margin: 0 0 20px; color: var(--verde-hondo);
+}
+
+/* ── Registro del cliente ──────────────────────────────── */
+.registro {
+  background: #fff; border-radius: var(--radio); position: relative;
+  max-width: 620px; width: 100%; padding: 34px 32px 30px;
+  max-height: 90vh; overflow: auto;
+}
+.registro h3 {
+  font-family: var(--titular); font-weight: 700; font-size: 24px;
+  margin: 0 0 8px;
+}
+.registro .sub { font-size: 15px; color: #5a5c50; margin: 0 0 22px; }
+.registro .campo { margin-bottom: 14px; }
+.auth-tabs { display:flex; gap:8px; margin:0 0 20px; }
+.auth-tab {
+  flex:1; border:1px solid var(--linea); background:#fff; color:var(--carbon);
+  padding:11px; border-radius:var(--radio); font:inherit; font-weight:600; cursor:pointer;
+}
+.auth-tab.activo { background:var(--verde); color:#fff; border-color:var(--verde); }
+.portal-caja {
+  border:1px solid var(--linea); background:#fff; border-radius:var(--radio);
+  padding:26px 28px; display:flex; align-items:center; justify-content:space-between;
+  gap:24px; box-shadow:0 8px 24px rgba(36,36,31,.06);
+}
+.portal-caja strong { font-family:var(--titular); font-size:21px; color:var(--verde-hondo); }
+.portal-caja p { margin:7px 0 0; color:#5a5c50; max-width:65ch; }
+
+.saludo {
+  font-family: var(--spec); font-size: 13px; color: var(--acero);
+}
+
+/* ── Cotización ────────────────────────────────────────── */
+.flotante {
+  position: fixed; right: 22px; bottom: 22px; z-index: 60;
+  background: var(--verde); color: #fff; border: none;
+  border-radius: 100px; padding: 15px 24px; cursor: pointer;
+  font: inherit; font-weight: 600; font-size: 15.5px;
+  box-shadow: 0 6px 22px rgba(36,36,31,.28);
+  display: flex; align-items: center; gap: 10px;
+}
+.flotante[hidden] { display: none; }
+.flotante b {
+  background: #fff; color: var(--verde); border-radius: 100px;
+  min-width: 24px; height: 24px; display: inline-flex;
+  align-items: center; justify-content: center;
+  font-family: var(--spec); font-size: 13px;
+}
+
+.panel {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 95;
+  width: min(760px, 100%); background: #fff;
+  border-left: 1px solid var(--linea);
+  display: flex; flex-direction: column;
+  box-shadow: -10px 0 40px rgba(36,36,31,.18);
+}
+.panel[hidden] { display: none; }
+.panel-cab {
+  padding: 22px 24px 18px; border-bottom: 1px solid var(--linea);
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;
+}
+.panel-cab h3 { font-family: var(--titular); font-size: 20px; margin: 0 0 4px; }
+.panel-cab p { margin: 0; font-size: 14px; color: var(--acero); }
+.panel-lista { flex: 1; overflow: auto; padding: 8px 24px; }
+.renglon {
+  display: grid; grid-template-columns: 90px 1fr 120px;
+  gap: 12px; align-items: center; padding: 18px; margin:14px 0;
+  border:1px solid var(--linea); border-radius:12px; background:#fff;
+}
+.renglon-codigo { font-family:var(--spec); font-weight:600; color:var(--verde-hondo); }
+.renglon-precio { font-family:var(--spec); font-size:13px; color:var(--acero); text-align:right; }
+.cot-encabezados {
+  display:grid; grid-template-columns:90px 1fr 120px 125px 110px; gap:12px;
+  padding:12px 0 8px; border-bottom:2px solid var(--verde); color:var(--verde-hondo);
+  font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+}
+.renglon-txt { flex: 1; }
+.renglon-txt b { display: block; font-size: 15px; font-weight: 600; }
+.renglon-txt span { font-family: var(--spec); font-size: 12.5px; color: var(--acero); }
+.renglon-adicionales { grid-column:1/-1; }
+.btn-adicional { grid-column:1/-1; justify-self:start; border:0; background:transparent; color:var(--verde); font-weight:700; cursor:pointer; }
+.renglon-adicionales[hidden] { display:none; }
+.renglon-adicionales label { display:block; font-size:12px; font-weight:700; margin-bottom:6px; }
+.renglon-adicionales textarea {
+  width:100%; min-height:70px; resize:vertical; border:1px solid var(--linea);
+  border-radius:8px; padding:10px 12px; font:inherit; box-sizing:border-box;
+}
+.renglon-adicionales textarea:focus { outline:2px solid rgba(81,100,52,.2); border-color:var(--verde); }
+.opciones-producto { grid-column:1/-1; display:grid; gap:12px; padding-top:6px; }
+.grupo-opcion { border:0; padding:0; margin:0; }
+.grupo-opcion legend { font-size:12px; font-weight:700; margin-bottom:7px; }
+.opciones-botones { display:flex; flex-wrap:wrap; gap:7px; }
+.opcion-btn {
+  border:1px solid var(--linea); background:#f7f7f3; color:var(--carbon);
+  border-radius:999px; padding:8px 12px; cursor:pointer; font:inherit; font-size:13px;
+}
+.opcion-btn:hover { border-color:var(--verde); }
+.opcion-btn.seleccionada { background:var(--verde-hondo); color:#fff; border-color:var(--verde-hondo); }
+.cant { display: flex; align-items: center; gap: 6px; }
+.cant button {
+  width: 28px; height: 28px; border: 1px solid var(--linea);
+  background: #fff; border-radius: var(--radio); cursor: pointer;
+  font: inherit; font-size: 16px; line-height: 1; color: var(--carbon);
+}
+.cant button:hover { border-color: var(--verde); color: var(--verde); }
+.cant output {
+  font-family: var(--spec); font-size: 15px; min-width: 26px; text-align: center;
+}
+.panel-pie { padding: 20px 24px 24px; border-top: 1px solid var(--linea); }
+.panel-pie .btn { width: 100%; margin-bottom: 8px; }
+.aclaracion { font-size: 12.5px; color: var(--acero); margin: 10px 0 0; line-height: 1.5; }
+
+/* ── Rastreo ───────────────────────────────────────────── */
+.rastreo {
+  background: var(--verde-hondo); color: var(--hueso-claro);
+}
+.rastreo .encabezado h2, .rastreo .encabezado p { color: inherit; }
+.rastreo .encabezado p { color: rgba(244,242,236,.78); }
+.rastreo-caja {
+  display: flex; gap: 10px; flex-wrap: wrap; max-width: 520px; margin-top: 26px;
+}
+.rastreo-caja input {
+  flex: 1; min-width: 210px; font: inherit; font-family: var(--spec);
+  font-size: 16px; letter-spacing: .08em; text-transform: uppercase;
+  padding: 14px 16px; border-radius: var(--radio);
+  border: 1.5px solid rgba(255,255,255,.28);
+  background: rgba(255,255,255,.07); color: #fff;
+}
+.rastreo-caja input::placeholder { color: rgba(244,242,236,.42); letter-spacing: .06em; }
+.rastreo-caja input:focus { border-color: #fff; outline: none; }
+
+.avance { margin-top: 30px; max-width: 620px; }
+.avance[hidden] { display: none; }
+.etapas { display: flex; gap: 4px; margin: 20px 0 14px; }
+.etapa { flex: 1; }
+.etapa i {
+  display: block; height: 6px; border-radius: 100px;
+  background: rgba(255,255,255,.18);
+}
+.etapa.lista i { background: var(--hueso-claro); }
+.etapa span {
+  display: block; font-size: 12.5px; margin-top: 9px;
+  color: rgba(244,242,236,.55);
+}
+.etapa.lista span { color: var(--hueso-claro); }
+.avance-nota { font-size: 14.5px; color: rgba(244,242,236,.8); margin: 0; }
+
+/* ── Servicios ─────────────────────────────────────────── */
+.servicios-rejilla {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.servicio {
+  border-left: 3px solid var(--verde);
+  padding: 4px 0 4px 18px;
+}
+.servicio h3 {
+  font-family: var(--titular); font-size: 18px; font-weight: 600;
+  margin: 0 0 5px;
+}
+.servicio p { margin: 0; font-size: 15px; color: #5a5c50; }
+
+/* ── Contacto ──────────────────────────────────────────── */
+.contacto-rejilla {
+  display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start;
+}
+.campo { margin-bottom: 16px; }
+.campo label {
+  display: block; font-size: 14.5px; font-weight: 600; margin-bottom: 6px;
+}
+.campo input, .campo textarea, .campo select {
+  width: 100%; font: inherit; font-size: 16px;
+  padding: 12px 14px; border-radius: var(--radio);
+  border: 1.5px solid var(--linea); background: #fff; color: var(--carbon);
+}
+.campo input:focus, .campo textarea:focus, .campo select:focus {
+  border-color: var(--verde); outline: none;
+}
+.campo textarea { resize: vertical; min-height: 108px; }
+.datos-lista { list-style: none; padding: 0; margin: 0; }
+.datos-lista li {
+  padding: 14px 0; border-bottom: 1px solid var(--linea);
+  font-size: 15.5px;
+}
+.datos-lista b { display: block; font-size: 13px; color: var(--acero); font-weight: 500; margin-bottom: 3px; }
+.datos-lista a { text-decoration: none; font-weight: 500; }
+.datos-lista a:hover { text-decoration: underline; }
+
+/* ── Pie ───────────────────────────────────────────────── */
+footer {
+  background: var(--carbon); color: rgba(233,231,223,.72);
+  padding: 46px 0 34px; font-size: 14.5px;
+}
+footer .envoltura { display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+footer strong { color: var(--hueso-claro); font-family: var(--titular); }
+footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
+footer a { text-decoration: none; }
+footer a:hover { color: #fff; }
+
+/* ── Pantallas chicas ──────────────────────────────────── */
+@media (max-width: 900px) {
+  .portada-rejilla, .contacto-rejilla { grid-template-columns: 1fr; }
+  .portada-rejilla { padding: 56px 0 62px; gap: 34px; }
+  .portada-foto { order: -1; }
+  .portada-foto img { height: 230px; }
+  .detalle, .fp-rejilla { grid-template-columns: 1fr; }
+  .fp-foto { min-height: 260px; padding: 20px; }
+  .fp-foto img { max-height: 280px; }
+  .nav-links {
+    display: none; position: absolute; top: 76px; left: 0; right: 0;
+    background: var(--hueso-claro); flex-direction: column; gap: 0;
+    padding: 8px 24px 18px; border-bottom: 1px solid var(--linea);
+  }
+  .nav-links.abierto { display: flex; }
+  .nav-links a { padding: 12px 0; border-bottom: 1px solid var(--linea); }
+  .nav-links .btn { margin-top: 10px; }
+  .menu-btn { display: block; }
+  .herramientas { top: 0; }
+  section { padding: 56px 0; }
+}
+@media (max-width: 620px) {
+  .portal-caja { align-items:flex-start; flex-direction:column; }
+  .renglon, .cot-encabezados { grid-template-columns:70px 1fr 102px; }
+  .renglon-precio, .cot-encabezados span:nth-last-child(-n+2) { display:none; }
+}
+@media (max-width: 520px) {
+  .envoltura { width: calc(100% - 32px); }
+  .flotante { right: 14px; bottom: 14px; padding: 13px 19px; }
+}
+</style>
+</head>
+
+<body>
+<div class="cinta"></div>
+
+<!-- ── Navegación ─────────────────────────────────────── -->
+<header class="nav">
+  <div class="envoltura nav-fila">
+    <a class="marca" href="#inicio">
+      <img src="logo-acre.png"
+           alt="ACRE" onerror="this.style.display='none'" />
+      <span class="marca-txt">ACRE
+        <small>American Cattle Ranch Equipment</small>
+      </span>
+    </a>
+
+    <button class="menu-btn" id="menu" aria-label="Abrir menú" aria-expanded="false">≡</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#inicio">Inicio</a>
+      <a href="#/servicios">Servicios</a>
+      <a href="#rastreo">Rastrea tu pedido</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#" id="accesoCliente">Acceso clientes</a>
+      <a class="btn" href="#/catalogo">Ver catálogo</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ── Portada ────────────────────────────────────────── -->
+<div class="portada" id="inicio">
+  <div class="envoltura portada-rejilla">
+    <div>
+      <h1>Acero que aguanta<br />lo que el rancho exige</h1>
+      <p class="entrada">
+        Corraletas, trampas, comederos, bebederos y básculas fabricadas en
+        nuestro taller. Trabajamos tubo petrolero recuperado, el mismo
+        material con el que se hace lo que dura décadas a la intemperie.
+      </p>
+      <div class="portada-acciones">
+        <a class="btn claro" href="#/catalogo">Ver el catálogo</a>
+        <a class="btn linea" style="color:#f4f2ec; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.4)"
+           href="#/servicios">Servicios de taller</a>
+      </div>
+
+      <div class="portada-datos">
+        <div class="dato"><b id="numProductos">42</b><span>productos y servicios</span></div>
+        <div class="dato"><b>Tubo petrolero</b><span>material principal</span></div>
+        <div class="dato"><b>MX · USA · CAN</b><span>a donde enviamos</span></div>
+      </div>
+    </div>
+
+    <figure class="portada-foto" id="portadaGaleria">
+      <button class="portada-anterior" id="portadaAnterior" aria-label="Imagen anterior">‹</button>
+      <img id="portadaImagen" src="https://americancattleranchequipment.com/wp-content/uploads/2025/12/image-41.png"
+           alt="Trampa Bull con palpador" tabindex="0"
+           onerror="this.closest('.portada-foto').remove();
+                    document.querySelector('.portada-rejilla').style.gridTemplateColumns='1fr'" />
+      <button class="portada-siguiente" id="portadaSiguiente" aria-label="Imagen siguiente">›</button>
+      <figcaption>
+        <span id="portadaNombre">Trampa Bull con palpador</span>
+        <span id="portadaMaterial">Acero reforzado</span>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- ── Catálogo ───────────────────────────────────────── -->
+<section id="catalogo">
+  <div class="envoltura">
+    <div class="encabezado">
+      <h2>Catálogo</h2>
+      <p>
+        Busca por nombre o por medida. Ve juntando lo que necesitas y al
+        final te armamos la cotización.
+      </p>
+    </div>
+
+    <div class="herramientas">
+      <div class="buscador">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" />
+        </svg>
+        <input id="busca" type="search" autocomplete="off"
+               placeholder="Busca: corraleta, 24 pies, bebedero, báscula…"
+               aria-label="Buscar en el catálogo" />
+      </div>
+      <div class="filtros" id="filtros" role="group" aria-label="Filtrar por línea"></div>
+      <p class="conteo" id="conteo"></p>
+    </div>
+
+    <div class="rejilla" id="rejilla"></div>
+  </div>
+</section>
+
+<!-- ── Servicios ──────────────────────────────────────── -->
+<section id="servicios" class="seccion-clara">
+  <div class="envoltura">
+    <div class="encabezado">
+      <h2>Servicios de taller</h2>
+      <p>
+        Además del catálogo, hacemos trabajo por encargo. Si traes tu propio
+        material o necesitas una pieza a la medida, se puede.
+      </p>
+    </div>
+    <div class="servicios-rejilla" id="serviciosRejilla"></div>
+  </div>
+</section>
+
+<!-- ── Rastreo ────────────────────────────────────────── -->
+<section id="rastreo" class="rastreo">
+  <div class="envoltura">
+    <div class="encabezado">
+      <h2>¿Cómo va tu pedido?</h2>
+      <p>
+        Cuando ACRE confirme el pedido te enviará un código por WhatsApp o correo.
+        Escríbelo aquí para consultar la etapa de fabricación.
+      </p>
+    </div>
+
+    <div class="rastreo-caja">
+      <input id="codigo" placeholder="Ej. ACRE-7K42" maxlength="14"
+             aria-label="Código de rastreo" />
+      <button class="btn claro" id="btnRastrear">Consultar</button>
+    </div>
+    <p class="aclaracion" style="color:rgba(244,242,236,.72)">Código de demostración: ACRE-7K42</p>
+
+    <div class="avance" id="avance" hidden>
+      <div class="etapas" id="etapas"></div>
+      <p class="avance-nota" id="avanceNota"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Nosotros ───────────────────────────────────────── -->
+<section id="nosotros">
+  <div class="envoltura">
+    <div class="encabezado" style="max-width:70ch">
+      <h2>Entendemos el valor del esfuerzo diario</h2>
+      <p>
+        Somos un taller metalmecánico dedicado al equipo para rancho
+        ganadero. Fabricamos, soldamos, preparamos y pintamos aquí mismo,
+        así que respondemos por lo que sale por la puerta. La confianza se
+        gana con resultados, y en este oficio el resultado se ve a los
+        cinco años, cuando el equipo sigue de pie.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="envoltura">
+    <div>
+      <strong>ACRE — American Cattle Ranch Equipment</strong><br />
+      Equipo para rancho ganadero
+    </div>
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#/servicios">Servicios</a>
+      <a href="#rastreo">Rastreo</a>
+      <a href="#" id="accesoPie">Acceso clientes</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ── Cotización flotante ────────────────────────────── -->
+<!-- Acceso de demostración. Para cuentas reales debe conectarse a servidor. -->
+<div class="velo" id="veloRegistro" hidden>
+  <div class="registro">
+    <button class="cerrar" id="cerrarRegistro" aria-label="Cerrar">✕</button>
+    <h3 id="registroTitulo">Acceso para clientes</h3>
+    <p class="sub" id="registroSub">Ingresa con la cuenta proporcionada por ACRE.</p>
+    <form id="formRegistro" novalidate>
+      <div class="campo">
+        <label for="rCorreo">Correo electrónico</label>
+        <input id="rCorreo" type="email" autocomplete="email" placeholder="cliente@correo.com" required />
+      </div>
+      <div class="campo">
+        <label for="rClave">Contraseña</label>
+        <input id="rClave" type="password" minlength="6" autocomplete="current-password" placeholder="Contraseña" required />
+      </div>
+      <p class="aclaracion" id="registroAviso"></p>
+      <button class="btn" id="btnAuth" type="submit" style="width:100%">Iniciar sesión</button>
+    </form>
+    <button class="btn linea" id="cerrarSesion" type="button" style="width:100%;margin-top:10px" hidden>Cerrar sesión</button>
+    <p class="aclaracion">El acceso lo entrega directamente la empresa.</p>
+  </div>
+</div>
+
+<button class="flotante" id="flotante" hidden>
+  Mi pedido <b id="flotanteNum">0</b>
+</button>
+
+<aside class="panel" id="panel" hidden aria-label="Tu cotización">
+  <div class="panel-cab">
+    <div>
+      <h3>Personaliza tu pedido</h3>
+      <p id="cotCliente">Cliente registrado</p>
+    </div>
+    <button id="cerrarPanel" aria-label="Cerrar"
+      style="width:38px;height:38px;font-size:18px;background:#fff;border:1px solid #d9d7ce;border-radius:8px;cursor:pointer">✕</button>
+  </div>
+  <div class="panel-lista" id="panelLista"></div>
+  <div class="panel-pie">
+    <button class="btn" id="enviarCot">Ver precio y generar orden PDF</button>
+    <button class="btn linea" id="vaciar" style="width:100%">Vaciar</button>
+    <p class="aclaracion">
+      Se abre WhatsApp con la lista escrita. Nada se envía hasta que le des
+      enviar en la aplicación.
+    </p>
+  </div>
+</aside>
+
+<!-- La ficha completa: es una PÁGINA de este sitio, no un enlace a otro
+     lado. Tiene su propia dirección (#/producto/...) para poder mandarla
+     por WhatsApp y que abra directo en ese producto. -->
+<main class="ficha-pagina" id="fichaPagina" hidden></main>
+
+<script src="productos.js"></script>
+<script src="jspdf.umd.min.js"></script>
+<script src="acre.js"></script>
+</body>
+</html>

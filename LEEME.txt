@@ -1,0 +1,300 @@
+==========================================================================
+ SITIO WEB DE ACRE — American Cattle Ranch Equipment
+==========================================================================
+
+QUE ES ESTO
+
+Un rediseno completo del sitio, armado con los 42 productos y servicios
+que ya estan en el catalogo actual.
+
+Los archivos principales son:
+
+    index.html      la pagina (diseno y estructura)
+    acre.js         lo que la hace funcionar
+    productos.js    el catalogo — aqui se agregan productos
+    logo-acre.png   logo usado en la pagina y en la orden PDF
+    jspdf.umd.min.js generador local de la orden PDF
+
+No usa WordPress, ni Elementor, ni plugins. Abre en menos de un segundo
+y funciona con senal mala, que es como se va a ver desde un rancho.
+
+
+--------------------------------------------------------------------------
+ COMO VERLO AHORA MISMO
+--------------------------------------------------------------------------
+
+Doble clic en index.html. Se abre en el navegador. Ya.
+
+En VS Code: abre la carpeta, clic derecho en index.html > "Open with
+Live Server" (si tienes esa extension), o simplemente doble clic al
+archivo desde el Explorador.
+
+
+--------------------------------------------------------------------------
+ LO QUE HACE, Y QUE NO TENIA ANTES
+--------------------------------------------------------------------------
+
+BUSCADOR INSTANTANEO
+    Se escribe "bebedero", "24 pies" o "bascula" y filtra mientras
+    tecleas. Encuentra aunque escribas sin acentos.
+
+FILTROS POR LINEA
+    Corraletas, trampas, Chutis, Medias naranjas, Camiones, Contenedores,
+    comederos, basculas y materiales. Los servicios de taller viven en su
+    propia pantalla.
+
+PEDIDO ARMADO POR EL CLIENTE
+    Va agregando lo que necesita, ajusta cantidades y escribe adicionales
+    distintos para cada producto. Al solicitar precio te llega por WhatsApp:
+
+        Hola, me interesa cotizar:
+        • 2 × Corraleta 24 pies (24 pies)
+          Adicionales: color rojo y puerta automatica
+        • 1 × Bebedero 6 mil litros (6,000 L)
+        ¿Me pueden dar precio y tiempo de entrega?
+
+    Esto es lo que mas va a cambiar tu dia a dia: en vez de "¿cuanto
+    cuesta el comedero?", te llega la lista completa.
+
+VARIAS CONFIGURACIONES DEL MISMO PRODUCTO
+    El boton "Otra configuracion de este producto" crea un renglon separado.
+    Asi se puede pedir, por ejemplo, una trampa hidraulica de 10 pies con
+    llantas y otra de 20 pies sin llantas dentro de la misma orden.
+
+ORDEN PDF
+    Antes de finalizar aparece una confirmacion para revisar que ya no se
+    quieran hacer cambios. El sitio valida que todas las opciones obligatorias
+    esten seleccionadas y genera un PDF profesional con folio, fecha, cliente,
+    cantidades y configuraciones. Es un solo documento valido para el cliente
+    y para ACRE, con logo, numero consecutivo (1-2026, 2-2026, etc.), tabla de
+    productos, total de piezas y espacios
+    de conformidad. Por ahora se descarga en el equipo del cliente; cuando el
+    sitio se conecte con el programa, tambien se guardara automaticamente en la
+    empresa.
+
+OPCIONES GUIADAS POR PRODUCTO
+    Los productos configurables muestran botones diferentes. Chutis permite
+    elegir largo, puertas y media naranja; Media naranja permite lado y tipo
+    de puerta; Camiones permite sencillo o hidraulico; Contenedores permite
+    tapa, ruedas, sujecion y forma. Tambien queda un campo libre para cualquier
+    adicional que no aparezca en los botones.
+
+FICHA COMPLETA DENTRO DEL SITIO
+    Antes, "ver mas" mandaba al sitio viejo de WordPress. Ya no: cada
+    producto tiene su propia pagina AQUI, con foto grande, ficha
+    tecnica, detalles y otros productos de la misma linea.
+
+    Cada una tiene su propia direccion, por ejemplo:
+        index.html#/producto/bebedero-10-mil-litros
+
+    Eso sirve para algo concreto: puedes pasar ese enlace por WhatsApp
+    y al cliente le abre directo en ese producto, no en la portada.
+    El boton de regresar del navegador funciona normal.
+
+ACCESO DEL CLIENTE (DEMOSTRACION)
+    El cliente no puede crear su propia cuenta. ACRE le entrega el correo y
+    la contrasena. Las cuatro cuentas incluidas son:
+
+        correo: cliente@acre.com
+        contrasena: ACRE2026
+
+        NIEL
+        correo: niel@acre.com
+        contrasena: NIEL2026
+
+        NT FARM
+        correo: ntfarm@acre.com
+        contrasena: NTFARM2026
+
+        DOS HERMANOS
+        correo: doshermanos@acre.com
+        contrasena: DH2026
+
+    Con eso, el mensaje que te llega viene firmado:
+
+        Hola, me interesa cotizar:
+        • 2 × Corraleta 24 pies (24 pies)
+
+        — Jorge Mendoza, Rancho El Sauz
+        Carichi, Chihuahua
+        Tel. 6251234567
+
+    Ya no llegan mensajes sueltos sin saber de quien son.
+
+RASTREO DE PEDIDO
+    El cliente escribe su codigo y ve en que etapa va lo suyo, sin
+    llamar. (Ver abajo: falta conectarlo.)
+
+LA MEDIDA COMO TITULAR
+    Cada ficha muestra primero "24 PIES", "3,000 L", "1,500 KG". Asi
+    se pide el equipo en el rancho, y asi lo busca el cliente.
+
+
+--------------------------------------------------------------------------
+ LO QUE TIENES QUE CAMBIAR ANTES DE PUBLICARLO
+--------------------------------------------------------------------------
+
+1. LAS CUENTAS
+   En acre.js busca CUENTAS_EMPRESA. Ahi puedes cambiar la cuenta de
+   demostracion mientras se conecta un servidor seguro.
+
+2. LAS FOTOS
+   Ahorita se cargan desde tu sitio actual (wp-content/uploads). Eso
+   sirve para ensenarlo, pero para publicarlo conviene bajarlas a una
+   carpeta "fotos/" del proyecto: cargan mas rapido y no dependen de
+   que WordPress siga arriba.
+
+   Faltan foto dos productos: "Puerta de 12 pies" y "Comedero normal".
+   Se ven con un recuadro que dice "Sin foto por ahora".
+
+
+--------------------------------------------------------------------------
+ COMO AGREGAR UN PRODUCTO
+--------------------------------------------------------------------------
+
+Abre productos.js y copia un bloque como este al final de la lista:
+
+    {
+      nombre: "Comedero 30 pies",
+      linea: "comederos",
+      spec: "30 pies",
+      material: "Tubo petrolero",
+      img: BASE + "2026/01/comedero-30.png",
+      url: "https://americancattleranchequipment.com/comedero-30-pies/",
+      nota: "Para corral grande.",
+    },
+
+Guarda y recarga. Aparece solo, con su filtro y su buscador.
+
+Las lineas validas son: estructuras, trampas, comederos, basculas,
+materiales, servicios, otros.
+
+
+==========================================================================
+ IMPORTANTE: TODOS LOS ARCHIVOS DEL ZIP VAN JUNTOS
+==========================================================================
+
+No separes index.html, acre.js, productos.js, logo-acre.png ni
+jspdf.umd.min.js. Si falta alguno, se puede romper una funcion o la orden
+puede generarse sin logo.
+
+Ya paso una vez. Sintoma: "desaparecio el catalogo" y los botones no
+hacen nada.
+
+Como saberlo: abre el sitio, presiona F12, pestaña Console. Si sale un
+renglon rojo tipo "Cannot read properties of null", estan mezclados.
+
+Solucion: copia la carpeta completa del mismo ZIP.
+
+
+--------------------------------------------------------------------------
+ SOBRE EL ACCESO: LO QUE SI ES Y LO QUE NO
+--------------------------------------------------------------------------
+
+ESTA VERSION ES UNA DEMOSTRACION LOCAL DEL ACCESO DE CLIENTES.
+
+La lista de cuentas esta dentro de acre.js, no en un servidor.
+Consecuencias:
+
+  - El cliente solo puede iniciar sesion con una cuenta entregada por ACRE.
+
+  - La empresa no ve una lista central de clientes hasta conectarlo.
+
+  - Una persona tecnica podria inspeccionar el archivo JavaScript. Antes de
+    usar cuentas reales debe conectarse a un servidor con base de datos.
+
+Para tener cuentas de verdad y una lista de clientes hace falta un
+servidor con base de datos. Es la misma pieza que necesita el portal
+de pedidos, y se puede hacer despues: lo que ya esta armado no se
+tira, se le conecta atras.
+
+Mientras tanto sirve para presentar y probar el flujo completo.
+
+
+--------------------------------------------------------------------------
+ COMO AGREGAR DETALLES A UNA FICHA
+--------------------------------------------------------------------------
+
+En productos.js, agregale al producto una lista "detalles":
+
+    {
+      nombre: "Comedero 10 pies",
+      ...
+      nota: "La medida de siempre para corral chico.",
+      detalles: [
+        "10 pies de largo.",
+        "Lamina calibre 14.",
+        "Patas reforzadas para arrastre.",
+      ],
+    },
+
+Si un producto no tiene "detalles", la ficha muestra un recuadro que
+dice que las medidas se definen al cotizar. Tres productos ya traen
+detalles de ejemplo, para que veas como se ven.
+
+
+--------------------------------------------------------------------------
+ EL RASTREO: FALTA CONECTARLO
+--------------------------------------------------------------------------
+
+Ahorita la pantalla de rastreo tiene un pedido de DEMOSTRACION:
+
+    ACRE-7K42
+
+El codigo se lo debe enviar ACRE al cliente por WhatsApp o correo cuando
+confirme su pedido. Los pedidos de prueba se agregan en PEDIDOS_RASTREO,
+dentro de acre.js, con su etapa actual.
+
+Para conectarlo con el sistema interno se tendra que crear una consulta como:
+
+    GET /produccion/rastreo/{codigo}
+
+Esa ruta todavia debe programarse y protegerse para que solo regrese la
+etapa del pedido, sin exponer datos internos de la empresa.
+
+
+--------------------------------------------------------------------------
+ COMO PUBLICARLO
+--------------------------------------------------------------------------
+
+OPCION A — Reemplazar el sitio actual
+    Subir los tres archivos (mas la carpeta de fotos) por FTP a la raiz
+    del hosting. Se va WordPress y queda esto.
+    Ventaja: rapido y sin plugins que actualizar.
+    Ojo: pierdes el panel de WordPress para editar desde el navegador;
+    los cambios se hacen editando productos.js.
+
+OPCION B — Dejarlo aparte primero
+    Subirlo a una carpeta, por ejemplo /nuevo/, y ensenarselo al jefe
+    antes de reemplazar nada. Es lo que yo haria.
+
+OPCION C — Hosting gratuito para ensenarlo ya
+    Netlify o Cloudflare Pages: arrastras la carpeta y te dan un enlace
+    en un minuto, sin tocar el dominio.
+
+
+--------------------------------------------------------------------------
+ DETALLES QUE PUEDEN IMPORTAR
+--------------------------------------------------------------------------
+
+COLORES
+    Verde militar #4F5D3A y gris #3E3E3E, sacados del propio logo. No
+    se agrego ningun color mas. Estan todos juntos hasta arriba del
+    index.html, en la seccion ":root", por si quieres ajustarlos.
+
+TIPOGRAFIA
+    Archivo e IBM Plex, las MISMAS del sistema de tesoreria. Asi la
+    pagina y el sistema interno se ven como una sola marca.
+    Se cargan de Google Fonts. Si quieres que funcione sin internet,
+    se pueden bajar a una carpeta "fuentes/".
+
+TELEFONO
+    Probado en pantalla de 390px: no se desborda, el menu se convierte
+    en hamburguesa y las fichas se acomodan en una columna.
+
+ACCESIBILIDAD
+    Se puede navegar con teclado, los botones tienen etiqueta para
+    lector de pantalla, y respeta el ajuste de "reducir movimiento" del
+    sistema operativo.
+
+==========================================================================
